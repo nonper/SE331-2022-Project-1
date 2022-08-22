@@ -4,7 +4,7 @@
     :to="{ name: 'EventDetails', params: { id: event.id } }"
   >
     <div class="event-card">
-      <span>@{{ event.name }}    {{ event.surname }}</span>
+      <span>@{{ event.name }} {{ event.surname }}</span>
       <h4>{{ event.vaccinateStatus }}</h4>
     </div>
   </router-link>
@@ -12,14 +12,14 @@
 
 <script>
 export default {
-  name: 'PatientCard',
+  name: "PatientCard",
   props: {
     event: {
       type: Object,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>
 
 <style scoped>
