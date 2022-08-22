@@ -11,16 +11,10 @@
 <script>
 // @ is an alias to /src
 import EventCard from "@/components/EventCard.vue";
-
+import EventService from "@/services/EventService.js";
 // import axios from 'axios'
 export default {
   name: "PatientList",
-  props: {
-    page: {
-      type: Number,
-      required: true,
-    },
-  },
   components: {
     EventCard, // register it as a child component
   },
@@ -28,8 +22,19 @@ export default {
   data() {
     return {
       events: null,
-      totalEvents: 0, // <--- Added this to store totalEvents
     };
+  },
+  // eslint-disable-next-line no-unused-vars
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    EventService.getEvents(4, 1)
+      .then((response) => {
+        next((comp) => {
+          comp.events = response.data;
+        });
+      })
+      .catch(() => {
+        next({ name: "NetworkError" });
+      });
   },
 };
 </script>
@@ -45,7 +50,6 @@ export default {
 }
 
 body {
-  padding: 20px;
   min-height: 100vh;
   background-color: rgb(234, 242, 255);
 }

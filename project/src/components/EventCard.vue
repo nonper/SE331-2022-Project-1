@@ -1,10 +1,11 @@
 <template>
   <router-link
     class="event-link"
-    :to="{ name: 'EventDetails', params: { id: event.id } }"
+    :to="{ name: 'PatientDetail', params: { id: event.id } }"
   >
     <div class="event-card">
-      <span>@{{ event.name }} {{ event.surname }}</span>
+      <h2 id="id">ID: {{ event.id }}</h2>
+      <h3>{{ event.name }} {{ event.surname }}</h3>
       <h4>{{ event.vaccinateStatus }}</h4>
     </div>
   </router-link>
@@ -23,12 +24,15 @@ export default {
 </script>
 
 <style scoped>
+h2#id {
+  color: rgb(252, 76, 76);
+}
+
 .event-card {
   padding: 20px;
   width: 250px;
   cursor: pointer;
   border: 1px solid #39495c;
-  margin-bottom: 18px;
 }
 
 .event-card:hover {

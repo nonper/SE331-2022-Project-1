@@ -3,16 +3,16 @@
     <h1>Covid 19</h1>
   </header>
   <nav>
-    <router-link to="/">Home</router-link>
+    <router-link to="/">Home</router-link> ||
+    <router-link to="/">Vaccinates</router-link>
   </nav>
   <router-view />
-
   <footer>footer here</footer>
 </template>
 
 <style>
 header {
-  background: #4cefb069;
+  background: #8a96db;
   text-align: center;
   width: 100%;
   height: auto;
@@ -24,10 +24,18 @@ header {
 }
 
 footer {
-  background: #4cefb069;
+  background: #8a96db;
   padding: 5vh 0;
   text-align: center;
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #app {
@@ -38,22 +46,19 @@ footer {
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
-}
-
 nav a {
   font-weight: bold;
   color: #2c3e50;
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  margin: 7vh 0 5vh 0;
+  color: #6070ca;
+  text-decoration: underline;
 }
 
 h1 {
   font-family: cursive;
   font-size: 50px;
-  margin-bottom: 20px;
 }
 </style>
