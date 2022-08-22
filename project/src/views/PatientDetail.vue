@@ -5,25 +5,36 @@
     <h2 style="margin: 2vh 0">Address: {{ event.homeTown }}</h2>
     <h2 style="margin: 2vh 0">Age: {{ event.age }}</h2>
 
-    <nav>
-      <router-link to="/addDoctorsComment">Add Doctor's comment</router-link>
-    </nav>
+    <DoctorCommentList v-if="reviews.length" :reviews="reviews" />
 
-    <router-view />
+    <div id="Docform">
+      <form class="review-form" @submit.prevent="onSubmit">
+        <h3 style="margin-bottom: 2vh">Add Patient's Comment</h3>
+        <label for="name">Doctor's Name:</label>
+        <input id="name" v-model="name" />
+        <label for="Comment">Doctor's Comment:</label>
+        <input id="Comment" v-model="comment" />
+        <input class="button" type="submit" value="Submit" />
+      </form>
+    </div>
     <!--doctor form should be here?  ก็อปform จากlab เก่า ไว้ใน components-->
   </div>
 </template>
 
 <script>
 import EventService from "@/services/EventService.js";
+import DoctorCommentList from "@/components/DoctorList.vue";
 export default {
   props: ["id"],
+  components: {
+    DoctorCommentList,
+  },
   data() {
     return {
       event: null,
+      reviews: [],
       name: "",
-      Comment: "",
-      question: "",
+      comment: "",
     };
   },
   created() {
@@ -36,23 +47,23 @@ export default {
       });
   },
   methods: {
+    addReview(review) {
+      this.reviews.push(review);
+    },
     onSubmit() {
-      if (this.name === "" || this.Comment === "") {
-        alert("Comment is incomplete. Please fill out every field");
+      if (this.name === "" || this.comment === "") {
+        alert("Review is incomplete. Please fill out every field");
         return;
       }
 
-      let DoctorComment = {
+      let productReview = {
         name: this.name,
-        review: this.review,
-        rating: this.rating,
-        question: this.question,
+        comment: this.comment,
       };
-      this.$emit("Commented", DoctorComment);
+      this.addReview(productReview);
 
       this.name = "";
-      this.Comment = "";
-      this.question = "";
+      this.comment = "";
     },
   },
 };
@@ -61,6 +72,12 @@ export default {
 <style>
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
+div#Docform {
+  border: 1px solid;
+  margin: 6vh 4vh;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 2vh;
+}
 a {
   margin: 2vh 0 2vh 0;
   display: inline-block;

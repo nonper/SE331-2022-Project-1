@@ -11,6 +11,9 @@
 </template>
 
 <style>
+body {
+  height: 1000px;
+}
 header {
   background: #8a96db;
   text-align: center;

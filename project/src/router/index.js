@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import PatientList from "../views/PatientList.vue";
 import PatientDetail from "../views/PatientDetail.vue";
-import DoctorsComment from "../components/DoctorForm.vue";
 import NProgress from "nprogress";
 
 const routes = [
@@ -15,13 +14,6 @@ const routes = [
     name: "PatientDetail",
     component: PatientDetail,
     props: true,
-    children: [
-      {
-        path: "/addDoctorsComment",
-        name: "DoctorsComment",
-        component: DoctorsComment,
-      },
-    ],
   },
 ];
 

@@ -4,7 +4,7 @@
     :to="{ name: 'PatientDetail', params: { id: event.id } }"
   >
     <div class="event-card">
-      <h2 id="id">ID: {{ event.id }}</h2>
+      <h4 id="id">ID: {{ event.id }}</h4>
       <h3>{{ event.name }} {{ event.surname }}</h3>
       <h4>{{ event.vaccinateStatus }}</h4>
     </div>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style scoped>
-h2#id {
+#id {
   color: rgb(252, 76, 76);
 }
 
