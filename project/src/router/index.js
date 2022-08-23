@@ -1,26 +1,77 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import PatientList from "../views/PatientList.vue";
+import PatientDetail from "../views/PatientDetail.vue";
+import vaccineDetail from "../views/VaccineView.vue";
+import EventService from "@/services/EventService";
+import NotFoundView from "../views/events/NotFoundView.vue";
+import NetWorkErrorView from "../views/events/NetworkError.vue";
+import NProgress from "nprogress";
+import GStore from "@/store";
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "PatientList",
+    component: PatientList,
+    props: (route) => ({ page: parseInt(route.query.page) || 1 }),
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/patient/:id",
+    name: "PatientDetail",
+    component: PatientDetail,
+    props: true,
+    beforeEnter: (to) => {
+      return EventService.getEventId(to.params.id)
+        .then((res) => {
+          GStore.event = res.data;
+        })
+        .catch((err) => {
+          if (err.response && err.response.status == 404) {
+            return {
+              name: "404Resource",
+              params: { resource: to.params.id + " Page" },
+            };
+          } else {
+            return { name: "NetworkError" };
+          }
+        });
+    },
+  },
+  {
+    path: "/vaccine",
+    name: "vaccineDetail",
+    component: vaccineDetail,
+    props: (route) => ({ page: parseInt(route.query.page) || 1 }),
+  },
+  {
+    path: "/404/:resource",
+    name: "404Resource",
+    component: NotFoundView,
+    props: true,
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: NotFoundView,
+  },
+  {
+    path: "/network-error",
+    name: "NetworkError",
+    component: NetWorkErrorView,
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach(() => {
+  NProgress.start();
+});
+
+router.afterEach(() => {
+  NProgress.done();
 });
 
 export default router;
