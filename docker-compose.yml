@@ -1,0 +1,6 @@
+version: "3.3"
+services:
+    web:
+      image: "biggib01/se331-project:latest"
+      ports:
+        - 8001:80
