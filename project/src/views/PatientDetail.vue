@@ -1,12 +1,15 @@
 <template>
   <!--  need fix style before send work   -->
-  <div v-if="event">
-    <h1 style="margin: 2vh 0">{{ event.name }} {{ event.surname }}</h1>
-    <h2 style="margin: 2vh 0">Address: {{ event.homeTown }}</h2>
-    <h2 style="margin: 2vh 0">Age: {{ event.age }}</h2>
+  <div v-if="GStore">
+    <h1 class="head name">
+      {{ GStore.event.name }} {{ GStore.event.surname }}
+    </h1>
+    <h2 class="head">Address: {{ GStore.event.homeTown }}</h2>
+    <h2 class="head">Age: {{ GStore.event.age }}</h2>
 
     <DoctorCommentList v-if="reviews.length" :reviews="reviews" />
 
+    <!--doctor form should be here?  ก็อปform จากlab เก่า ไว้ใน components-->
     <div id="Docform">
       <form class="review-form" @submit.prevent="onSubmit">
         <h3 style="margin-bottom: 2vh">Add Patient's Comment</h3>
@@ -17,34 +20,24 @@
         <input class="button" type="submit" value="Submit" />
       </form>
     </div>
-    <!--doctor form should be here?  ก็อปform จากlab เก่า ไว้ใน components-->
   </div>
 </template>
 
 <script>
-import EventService from "@/services/EventService.js";
 import DoctorCommentList from "@/components/DoctorList.vue";
 export default {
-  props: ["id"],
+  inject: ["GStore"],
   components: {
     DoctorCommentList,
   },
   data() {
     return {
-      event: null,
-      reviews: [],
+      reviews: [
+        { name: "Supachok Jrirarojkul", comment: "Good health condition." },
+      ],
       name: "",
       comment: "",
     };
-  },
-  created() {
-    EventService.getEventId(this.id)
-      .then((response) => {
-        this.event = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   },
   methods: {
     addReview(review) {
@@ -72,6 +65,12 @@ export default {
 <style>
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
+.name {
+  color: rgb(123, 16, 16);
+}
+.head {
+  margin: 2vh 0;
+}
 div#Docform {
   border: 1px solid;
   margin: 6vh 4vh;

@@ -1,12 +1,30 @@
 <template>
   <div>
-    <div class="events">
-      <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <!-- <input type="text" placeholder="Search patient..." /> -->
+    <div class="events" v-if="events">
+      <div class="event-card">
+        <table id="Table_id">
+          <tr>
+            <th class="IDColumn">ID</th>
+            <th>Name</th>
+            <th>Vaccinates</th>
+          </tr>
+          <tr v-for="events in events" :key="events.id">
+            <td class="IDColumn">{{ events.id }}</td>
+            <td>{{ events.name }}_{{ events.surname }}</td>
+            <td>
+              {{ events.firstDose }}
+              <p style="color: red">and</p>
+              {{ events.secondDose }}
+            </td>
+          </tr>
+        </table>
+      </div>
 
       <div class="pagination">
         <router-link
           id="page-prev"
-          :to="{ name: 'PatientList', query: { page: page - 1 } }"
+          :to="{ name: 'vaccineDetail', query: { page: page - 1 } }"
           rel="prev"
           v-if="page != 1"
         >
@@ -15,7 +33,7 @@
         ||
         <router-link
           id="page-next"
-          :to="{ name: 'PatientList', query: { page: page + 1 } }"
+          :to="{ name: 'vaccineDetail', query: { page: page + 1 } }"
           rel="next"
           v-if="hasNextPage"
         >
@@ -28,7 +46,6 @@
 
 <script>
 // @ is an alias to /src
-import EventCard from "@/components/EventCard.vue";
 import EventService from "@/services/EventService.js";
 // import axios from 'axios'
 export default {
@@ -39,26 +56,21 @@ export default {
       required: true,
     },
   },
-  components: {
-    EventCard, // register it as a child component
-  },
-
   data() {
     return {
       events: null,
       totalEvents: 0,
-      search: "",
     };
   },
   computed: {
     hasNextPage() {
-      let totalPages = Math.ceil(this.totalEvents / 5);
+      let totalPages = Math.ceil(this.totalEvents / 10);
       return this.page < totalPages;
     },
   },
   // eslint-disable-next-line no-unused-vars
   beforeRouteEnter(routeTo, routeFrom, next) {
-    EventService.getEvents(5, parseInt(routeTo.query.page) || 1)
+    EventService.getEvents(10, parseInt(routeTo.query.page) || 1)
       .then((response) => {
         next((comp) => {
           comp.events = response.data;
@@ -70,7 +82,7 @@ export default {
       });
   },
   beforeRouteUpdate(routeTo, routeFrom, next) {
-    EventService.getEvents(5, parseInt(routeTo.query.page) || 1)
+    EventService.getEvents(10, parseInt(routeTo.query.page) || 1)
       .then((res) => {
         this.events = res.data;
         this.totalEvents = res.headers["x-total-count"];
@@ -91,6 +103,15 @@ export default {
   margin: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+}
+
+table,
+th,
+td {
+  margin-left: auto;
+  font-size: 20px;
+  margin-right: auto;
+  border: 1px solid black;
 }
 
 body {
@@ -115,5 +136,9 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.IDColumn {
+  color: red;
 }
 </style>

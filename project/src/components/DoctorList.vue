@@ -6,7 +6,7 @@
         <br />
         "{{ review.comment }}"
         <br />
-        from Dr.{{ review.name }}
+        <p style="color: rgba(65, 118, 250, 1)">from Dr.{{ review.name }}</p>
       </li>
     </ul>
   </div>

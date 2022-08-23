@@ -747,8 +747,8 @@
         "homeTown": "7828 Lake View Rd. Lithonia, GA 30038",
         "age": "52",
         "vaccinateStatus": "First dose",
-        "fistDose": "Janssen",
-        "seondDose": "-"
+        "firstDose": "Janssen",
+        "secondDose": "-"
       },
       {
         "id": 76,
@@ -757,8 +757,8 @@
         "homeTown": "8652 Hillcrest Dr. Brownsburg, IN 46112",
         "age": "68",
         "vaccinateStatus": "Second dose",
-        "fistDose": "Moderna",
-        "seondDose": "Sinopharm"
+        "firstDose": "Moderna",
+        "secondDose": "Sinopharm"
       },
       {
         "id": 77,
@@ -767,8 +767,8 @@
         "homeTown": "638 Carriage Street Independence, KY 41051",
         "age": "26",
         "vaccinateStatus": "Second dose",
-        "fistDose": "Sinopharm",
-        "scondDose": "Sinopharm"
+        "firstDose": "Sinopharm",
+        "secondDose": "Sinopharm"
       },
       {
         "id": 78,
@@ -777,8 +777,8 @@
         "homeTown": "252 Birch Hill Street Derry, NH 03038",
         "age": "48",
         "vaccinateStatus": "First dose",
-        "fistDose": "Moderna",
-        "seondDose": "-"
+        "firstDose": "Moderna",
+        "secondDose": "-"
       },
       {
         "id": 79,

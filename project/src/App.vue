@@ -4,15 +4,15 @@
   </header>
   <nav>
     <router-link to="/">Home</router-link> ||
-    <router-link to="/">Vaccinates</router-link>
+    <router-link to="/vaccine">Vaccinates</router-link>
   </nav>
   <router-view />
-  <footer>footer here</footer>
+  <footer>@For SE331 mid term Project</footer>
 </template>
 
 <style>
 body {
-  height: 1000px;
+  height: 1150px;
 }
 header {
   background: #8a96db;
