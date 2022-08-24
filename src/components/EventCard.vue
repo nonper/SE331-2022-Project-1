@@ -8,7 +8,9 @@
         <div class="event-card">
           <h4 id="id">ID: {{ event.id }}</h4>
           <h3>{{ event.name }} {{ event.surname }}</h3>
-          <h4>{{ event.vaccinateStatus }}</h4>
+          <h4>
+            {{ event.vaccinateStatus }}
+          </h4>
         </div>
       </router-link>
     </div>
@@ -47,7 +49,8 @@ export default {
   padding: 20px;
   width: 250px;
   cursor: pointer;
-  border: 1px solid #39495c;
+  border-radius: 25px;
+  border: 2px solid #217aad;
 }
 
 .event-card:hover {

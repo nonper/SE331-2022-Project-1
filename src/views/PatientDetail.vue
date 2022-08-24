@@ -1,5 +1,14 @@
 <template>
   <!--  need fix style before send work   -->
+  <nav>
+    <router-link
+      :to="{ name: 'IndividualVaccDetail', params: { id: GStore.event.id } }"
+      >VaccineDetails</router-link
+    >
+  </nav>
+
+  <router-view />
+
   <div v-if="GStore">
     <h1 class="head name">
       {{ GStore.event.name }} {{ GStore.event.surname }}
@@ -17,7 +26,12 @@
         <input id="name" v-model="name" />
         <label for="Comment">Doctor's Comment:</label>
         <input id="Comment" v-model="comment" />
-        <input class="button" type="submit" value="Submit" />
+        <input
+          class="button"
+          @click="register(), scrollToTop()"
+          type="submit"
+          value="Submit"
+        />
       </form>
     </div>
   </div>
@@ -57,6 +71,22 @@ export default {
 
       this.name = "";
       this.comment = "";
+    },
+    register() {
+      //Assuming successful API call to register them
+      //Set a flash message to appear on the next page loaded which says
+      //'You are successfully registered for' + this.event.title
+      this.GStore.flashMessage =
+        "You are successfully commented for " +
+        this.GStore.event.name +
+        "'s Profile";
+      setTimeout(() => {
+        //After 3 seconds remove it
+        this.GStore.flashMessage = "";
+      }, 3000);
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
     },
   },
 };

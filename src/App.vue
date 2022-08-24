@@ -1,4 +1,7 @@
 <template>
+  <div id="flashMessage" v-if="GStore.flashMessage">
+    {{ GStore.flashMessage }}
+  </div>
   <header>
     <h1>Covid 19</h1>
   </header>
@@ -7,10 +10,47 @@
     <router-link to="/vaccine">Vaccinates</router-link>
   </nav>
   <router-view />
-  <footer>@For SE331 mid term Project</footer>
+  <footer>
+    @For SE331 mid term Project -:
+    <p style="color: white">{{ localTime }}</p>
+  </footer>
 </template>
 
+<script>
+export default {
+  inject: ["GStore"],
+  data: function () {
+    return {
+      localTime: "",
+    };
+  },
+  methods: {
+    showLocaleTime: function () {
+      var time = this;
+      setInterval(function () {
+        time.localTime = new Date().toLocaleTimeString();
+      }, 100);
+    },
+  },
+  mounted() {
+    this.showLocaleTime();
+  },
+};
+</script>
+
 <style>
+@keyframes colorfade {
+  from {
+    background: rgb(78, 238, 211);
+  }
+  to {
+    background: transparent;
+  }
+}
+#flashMessage {
+  animation-name: colorfade;
+  animation-duration: 3s;
+}
 body {
   height: 1150px;
 }
@@ -47,6 +87,7 @@ footer {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: rgb(245, 245, 255);
 }
 
 nav a {

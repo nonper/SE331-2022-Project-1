@@ -6,6 +6,7 @@ import EventService from "@/services/EventService";
 import NotFoundView from "../views/events/NotFoundView.vue";
 import NetWorkErrorView from "../views/events/NetworkError.vue";
 import NProgress from "nprogress";
+import IndidualVaccDetail from "../components/IndividualVacc.vue";
 import GStore from "@/store";
 
 const routes = [
@@ -36,6 +37,30 @@ const routes = [
           }
         });
     },
+    children: [
+      {
+        path: "/vaccineDetails/:id",
+        name: "IndividualVaccDetail",
+        component: IndidualVaccDetail,
+        prop: true,
+        beforeEnter: (to) => {
+          return EventService.getEventId(to.params.id)
+            .then((res) => {
+              GStore.event = res.data;
+            })
+            .catch((err) => {
+              if (err.response && err.response.status == 404) {
+                return {
+                  name: "404Resource",
+                  params: { resource: to.params.id + " Page" },
+                };
+              } else {
+                return { name: "NetworkError" };
+              }
+            });
+        },
+      },
+    ],
   },
   {
     path: "/vaccine",

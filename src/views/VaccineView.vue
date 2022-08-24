@@ -8,6 +8,7 @@
             <th class="IDColumn">ID</th>
             <th>Name</th>
             <th>Vaccinates</th>
+            <th>Date</th>
           </tr>
           <tr v-for="events in events" :key="events.id">
             <td class="IDColumn">{{ events.id }}</td>
@@ -16,6 +17,11 @@
               {{ events.firstDose }}
               <p style="color: red">and</p>
               {{ events.secondDose }}
+            </td>
+            <td>
+              {{ events.firstDate }}
+              <p style="color: red">and</p>
+              {{ events.secondDate }}
             </td>
           </tr>
         </table>
