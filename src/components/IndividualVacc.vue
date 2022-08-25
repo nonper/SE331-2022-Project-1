@@ -3,13 +3,15 @@
     <!-- <input type="text" placeholder="Search patient..." /> -->
     <div class="events" v-if="GStore.event">
       <div class="event-card">
-        <table style="border: none">
-          <tr>
-            <th class="IDColumn">ID</th>
-            <th>Name</th>
-            <th>Vaccinates</th>
-            <th>Date</th>
-          </tr>
+        <table class="styled-table" style="border: none">
+          <thead>
+            <tr>
+              <th class="IDColumn">ID</th>
+              <th>Name</th>
+              <th>Vaccinates</th>
+              <th>Date</th>
+            </tr>
+          </thead>
           <tr>
             <td class="IDColumn">{{ GStore.event.id }}</td>
             <td>{{ GStore.event.name }}_{{ GStore.event.surname }}</td>
@@ -48,15 +50,6 @@ export default {
   font-family: "Montserrat", sans-serif;
 }
 
-table,
-th,
-td {
-  margin-left: auto;
-  font-size: 20px;
-  margin-right: auto;
-  border: 1px solid black;
-}
-
 body {
   min-height: 100vh;
   background-color: rgb(234, 242, 255);
@@ -83,5 +76,30 @@ input {
 
 .IDColumn {
   color: red;
+}
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+  background-color: #8a96db;
+  color: #ffffff;
+  text-align: left;
+}
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
 }
 </style>

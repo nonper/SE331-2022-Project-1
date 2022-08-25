@@ -51,6 +51,7 @@ export default {
   cursor: pointer;
   border-radius: 25px;
   border: 2px solid #217aad;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .event-card:hover {

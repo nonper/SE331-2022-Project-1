@@ -16,7 +16,7 @@
     <h2 class="head">Address: {{ GStore.event.homeTown }}</h2>
     <h2 class="head">Age: {{ GStore.event.age }}</h2>
 
-    <DoctorCommentList v-if="reviews.length" :reviews="reviews" />
+    <DoctorCommentList class="a" v-if="reviews.length" :reviews="reviews" />
 
     <!--doctor form should be here?  ก็อปform จากlab เก่า ไว้ใน components-->
     <div id="Docform">
@@ -27,7 +27,7 @@
         <label for="Comment">Doctor's Comment:</label>
         <input id="Comment" v-model="comment" />
         <input
-          class="button"
+          class="button fade"
           @click="register(), scrollToTop()"
           type="submit"
           value="Submit"
@@ -94,6 +94,9 @@ export default {
 
 <style>
 @import url(https://fonts.googleapis.com/css?family=Nunito);
+input:focus {
+  background: rgb(248, 248, 101);
+}
 
 .name {
   color: rgb(123, 16, 16);
@@ -103,92 +106,36 @@ export default {
 }
 div#Docform {
   border: 1px solid;
-  margin: 6vh 4vh;
+  margin: auto;
   background: rgba(255, 255, 255, 0.6);
   padding: 2vh;
+  width: 600px;
+  height: 300;
+  position: center;
 }
-a {
+.a {
   margin: 2vh 0 2vh 0;
   display: inline-block;
   text-decoration: none;
   color: rgba(0, 0, 0, 1);
   -webkit-transition: color 0.25s;
   transition: color 0.25s;
-  text-align: left;
+  text-align: center;
+  width: 800px;
+}
+.fade {
+  background-color: #355ee7;
+  color: #fff;
+  transition: background-color 1s;
 }
 
-a div {
-  text-shadow: 1px 1px 1px black;
+.fade:hover {
+  background-color: #db1f48;
 }
 
-a:hover {
-  color: rgba(0, 255, 0, 1);
-}
-
-a span {
-  color: black;
-  font-size: 16px;
-
-  position: absolute;
-  top: 10px;
-  right: 50%;
-  margin-right: -430px;
-
-  padding: 50px 50px;
-
-  border-style: solid;
-  border-radius: 175px;
-
-  transform: scale(0);
-  -webkit-transform: scale(0);
-
-  transition: opacity 1s, transform 1.5s;
-  -webkit-transition: opacity 1s, transform 1.5s;
-  transition-delay: 0.5s;
-  -webkit-transition-delay: 0.5s;
-
-  opacity: 0;
-}
-
-a div:hover ~ span {
-  opacity: 1;
-  transform: scale(1);
-  -webkit-transform: scale(1);
-}
-
-a svg {
-  position: absolute;
-  top: 50%;
-  margin-top: -70px;
-  left: 50%;
-  margin-left: 100px;
-}
-
-a svg circle {
-  fill-opacity: 0;
-  opacity: 0;
-}
-
-a svg #c1 {
-  transition: opacity 1s;
-  -webkit-transition: opacity 1s;
-}
-
-a svg #c2 {
-  transition: opacity 2s;
-  -webkit-transition: opacity 2s;
-}
-
-a svg #c3 {
-  transition: opacity 3s;
-  -webkit-transition: opacity 3s;
-}
-
-a div:hover ~ svg circle {
-  opacity: 1;
-}
-
-a div {
-  cursor: pointer;
+.fade:focus,
+.fade:active {
+  background-color: black;
+  transition: none;
 }
 </style>

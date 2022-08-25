@@ -3,13 +3,15 @@
     <!-- <input type="text" placeholder="Search patient..." /> -->
     <div class="events" v-if="events">
       <div class="event-card">
-        <table id="Table_id">
-          <tr>
-            <th class="IDColumn">ID</th>
-            <th>Name</th>
-            <th>Vaccinates</th>
-            <th>Date</th>
-          </tr>
+        <table class="styled-table" id="Table_id">
+          <thead>
+            <tr>
+              <th class="IDColumn">ID</th>
+              <th>Name</th>
+              <th>Vaccinates</th>
+              <th>Date</th>
+            </tr>
+          </thead>
           <tr v-for="events in events" :key="events.id">
             <td class="IDColumn">{{ events.id }}</td>
             <td>{{ events.name }}_{{ events.surname }}</td>
@@ -111,13 +113,37 @@ export default {
   font-family: "Montserrat", sans-serif;
 }
 
-table,
-th,
-td {
-  margin-left: auto;
-  font-size: 20px;
-  margin-right: auto;
-  border: 1px solid black;
+table {
+  width: 100%;
+  border: 1px solid;
+}
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+  background-color: #8a96db;
+  color: #ffffff;
+  text-align: left;
+}
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+tr:hover {
+  font-weight: bold;
+  color: #8a96db;
 }
 
 body {
