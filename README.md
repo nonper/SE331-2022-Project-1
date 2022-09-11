@@ -4,7 +4,7 @@
 
 # url web
 - https://se331-project-418ba.web.app/
-- http://44.205.69.156:8001/
+- http://3.211.12.18:8001/
 
 # project
 
