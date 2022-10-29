@@ -6,17 +6,31 @@
     <h1>Covid 19</h1>
   </header>
   <nav>
-    <router-link to="/">Home</router-link> ||
-    <router-link to="/vaccine">Vaccinates</router-link>
+    <router-link v-if="isUser || isAdmin || isDoctor" to="/patientList"
+      >All Patient ||</router-link
+    >
+    <router-link v-if="!isUser && !isAdmin && !isDoctor" to="/login">
+      Login ||</router-link
+    >
+    <router-link v-if="!isUser && !isAdmin && !isDoctor" to="/register">
+      Register ||</router-link
+    >
+    <a v-if="isUser || isAdmin || isDoctor" class="nav-link" @click="logout">
+      LogOut ||</a
+    >
+    <p v-if="GStore.currentUser">
+      Welcome! <u style="color: red">{{ GStore.currentUser.name }}</u>
+    </p>
   </nav>
   <router-view />
   <footer>
-    @For SE331 mid term Project -:
+    @For SE331 Final Project -:
     <p style="color: white">{{ localTime }}</p>
   </footer>
 </template>
 
 <script>
+import AuthService from "./services/AuthService";
 export default {
   inject: ["GStore"],
   data: function () {
@@ -24,12 +38,30 @@ export default {
       localTime: "",
     };
   },
+  computed: {
+    currentUser() {
+      return localStorage.getItem("user");
+    },
+    isAdmin() {
+      return AuthService.hasRoles("ROLE_ADMIN");
+    },
+    isUser() {
+      return AuthService.hasRoles("ROLE_USER");
+    },
+    isDoctor() {
+      return AuthService.hasRoles("ROLE_DOCTOR");
+    },
+  },
   methods: {
     showLocaleTime: function () {
       var time = this;
       setInterval(function () {
         time.localTime = new Date().toLocaleTimeString();
       }, 100);
+    },
+    logout() {
+      AuthService.logout();
+      this.$router.push("/");
     },
   },
   mounted() {
@@ -87,7 +119,6 @@ footer {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: rgb(245, 245, 255);
 }
 
 nav a {

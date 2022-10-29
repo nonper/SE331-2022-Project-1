@@ -16,9 +16,12 @@
             <td class="IDColumn">{{ GStore.event.id }}</td>
             <td>{{ GStore.event.name }}_{{ GStore.event.surname }}</td>
             <td>
-              {{ GStore.event.firstDose }}
+              <!-- <div v-for="vaccine in event.vaccines" :key="vaccine.id">
+                {{ vaccine.vaccineName }}
+              </div> -->
+              {{ GStore.event.vaccines[0].vaccineName }}
               <p style="color: red">and</p>
-              {{ GStore.event.secondDose }}
+              {{ GStore.event.vaccines[1].vaccineName }}
             </td>
             <td>
               {{ GStore.event.firstDate }}
@@ -51,7 +54,7 @@ export default {
 }
 
 body {
-  min-height: 100vh;
+  min-height: 30px;
   background-color: rgb(234, 242, 255);
 }
 

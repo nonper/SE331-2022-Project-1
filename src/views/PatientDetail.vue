@@ -5,6 +5,15 @@
       :to="{ name: 'IndividualVaccDetail', params: { id: GStore.event.id } }"
       >VaccineDetails</router-link
     >
+    ||
+    <router-link
+      v-if="isDoctor"
+      :to="{
+        name: 'DoctorComment',
+        params: { id: GStore.event.id },
+      }"
+      >add Comment</router-link
+    >
   </nav>
 
   <router-view />
@@ -15,78 +24,41 @@
     </h1>
     <h2 class="head">Address: {{ GStore.event.homeTown }}</h2>
     <h2 class="head">Age: {{ GStore.event.age }}</h2>
+    <h2>
+      Doctor: Dr.{{ GStore.event.doctor.name }}
+      {{ GStore.event.doctor.surname }}
+    </h2>
 
-    <DoctorCommentList class="a" v-if="reviews.length" :reviews="reviews" />
-
-    <!--doctor form should be here?  ก็อปform จากlab เก่า ไว้ใน components-->
-    <div id="Docform">
-      <form class="review-form" @submit.prevent="onSubmit">
-        <h3 style="margin-bottom: 2vh">Add Patient's Comment</h3>
-        <label for="name">Doctor's Name:</label>
-        <input id="name" v-model="name" />
-        <label for="Comment">Doctor's Comment:</label>
-        <input id="Comment" v-model="comment" />
-        <input
-          class="button fade"
-          @click="register(), scrollToTop()"
-          type="submit"
-          value="Submit"
-        />
-      </form>
+    <div
+      style="border: 2px solid black"
+      v-for="comment in GStore.event.comment"
+      :key="comment.id"
+    >
+      <p>Comment: {{ comment.comment }}</p>
+      <p>
+        from: Dr.{{ comment.doctor.name }}
+        {{ comment.doctor.surname }}
+      </p>
     </div>
   </div>
 </template>
 
 <script>
-import DoctorCommentList from "@/components/DoctorList.vue";
+import AuthService from "@/services/AuthService";
 export default {
   inject: ["GStore"],
-  components: {
-    DoctorCommentList,
+  errorCaptured: function (err) {
+    console.log(err);
   },
-  data() {
-    return {
-      reviews: [
-        { name: "Supachok Jrirarojkul", comment: "Good health condition." },
-      ],
-      name: "",
-      comment: "",
-    };
-  },
-  methods: {
-    addReview(review) {
-      this.reviews.push(review);
+  computed: {
+    currentUser() {
+      return localStorage.getItem("user");
     },
-    onSubmit() {
-      if (this.name === "" || this.comment === "") {
-        alert("Review is incomplete. Please fill out every field");
-        return;
-      }
-
-      let productReview = {
-        name: this.name,
-        comment: this.comment,
-      };
-      this.addReview(productReview);
-
-      this.name = "";
-      this.comment = "";
+    isDoctor() {
+      return AuthService.hasRoles("ROLE_DOCTOR");
     },
-    register() {
-      //Assuming successful API call to register them
-      //Set a flash message to appear on the next page loaded which says
-      //'You are successfully registered for' + this.event.title
-      this.GStore.flashMessage =
-        "You are successfully commented for " +
-        this.GStore.event.name +
-        "'s Profile";
-      setTimeout(() => {
-        //After 3 seconds remove it
-        this.GStore.flashMessage = "";
-      }, 3000);
-    },
-    scrollToTop() {
-      window.scrollTo(0, 0);
+    isUser() {
+      return AuthService.hasRoles("ROLE_USER");
     },
   },
 };

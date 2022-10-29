@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="pagedd">
     <div class="events">
       <EventCard v-for="event in events" :key="event.id" :event="event" />
 
@@ -52,13 +52,13 @@ export default {
   },
   computed: {
     hasNextPage() {
-      let totalPages = Math.ceil(this.totalEvents / 5);
+      let totalPages = Math.ceil(this.totalEvents / 3);
       return this.page < totalPages;
     },
   },
   // eslint-disable-next-line no-unused-vars
   beforeRouteEnter(routeTo, routeFrom, next) {
-    EventService.getEvents(5, parseInt(routeTo.query.page) || 1)
+    EventService.getEvents(3, parseInt(routeTo.query.page) || 1)
       .then((response) => {
         next((comp) => {
           comp.events = response.data;
@@ -70,7 +70,7 @@ export default {
       });
   },
   beforeRouteUpdate(routeTo, routeFrom, next) {
-    EventService.getEvents(5, parseInt(routeTo.query.page) || 1)
+    EventService.getEvents(3, parseInt(routeTo.query.page) || 1)
       .then((res) => {
         this.events = res.data;
         this.totalEvents = res.headers["x-total-count"];
@@ -94,7 +94,7 @@ export default {
 }
 
 body {
-  min-height: 100vh;
+  min-height: 120vh;
   background-color: rgb(234, 242, 255);
 }
 
@@ -112,6 +112,7 @@ input {
 }
 
 .events {
+  height: 170px;
   display: flex;
   flex-direction: column;
   align-items: center;

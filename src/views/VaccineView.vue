@@ -16,9 +16,9 @@
             <td class="IDColumn">{{ events.id }}</td>
             <td>{{ events.name }}_{{ events.surname }}</td>
             <td>
-              {{ events.firstDose }}
+              {{ events.vaccines[0] }}
               <p style="color: red">and</p>
-              {{ events.secondDose }}
+              {{ events.vaccines[1] }}
             </td>
             <td>
               {{ events.firstDate }}
