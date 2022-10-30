@@ -9,10 +9,11 @@ import NProgress from "nprogress";
 import IndidualVaccDetail from "../components/IndividualVacc.vue";
 import Login from "@/views/LoginFormView.vue";
 import Register from "../views/registerView.vue";
-import AdminsPanel from "@/views/EventForm.vue";
 import DoctorService from "@/services/DoctorService";
 import DoctorComment from "@/views/addCommentView.vue";
 import Blankpage from "@/views/BlankpageBB.vue";
+import AdminsPanelView from "@/views/AdminPanelView.vue";
+import AddPatient from "@/views/AddPatientForm.vue";
 import GStore from "@/store";
 
 const routes = [
@@ -34,25 +35,33 @@ const routes = [
   },
   {
     path: "/adminpanel",
-    name: "AdminsPanel",
-    component: AdminsPanel,
+    name: "AdminsPanelView",
+    component: AdminsPanelView,
     props: true,
-    beforeEnter: (to) => {
-      return DoctorService.getDoctors
-        .then((res) => {
-          GStore.event = res.data;
-        })
-        .catch((err) => {
-          if (err.response && err.response.status == 404) {
-            return {
-              name: "404Resource",
-              params: { resource: to.params.id + " Page" },
-            };
-          } else {
-            return { name: "NetworkError" };
-          }
-        });
-    },
+    children: [
+      {
+        path: "/addPatient",
+        name: "addPatient",
+        component: AddPatient,
+        props: true,
+        beforeEnter: (to) => {
+          return DoctorService.getDoctors()
+            .then((res) => {
+              GStore.event = res.data;
+            })
+            .catch((err) => {
+              if (err.response && err.response.status == 404) {
+                return {
+                  name: "404Resource",
+                  params: { resource: to.params.id + " Page" },
+                };
+              } else {
+                return { name: "NetworkError" };
+              }
+            });
+        },
+      },
+    ],
   },
   {
     path: "/patient/:id",

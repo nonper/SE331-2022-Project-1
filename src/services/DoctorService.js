@@ -4,6 +4,9 @@ export default {
   getDoctors() {
     return apiClient.get("/doctors");
   },
+  getVaccine() {
+    return apiClient.get("/vaccines");
+  },
   postComment(comment) {
     return apiClient.post("/addComment", comment);
   },

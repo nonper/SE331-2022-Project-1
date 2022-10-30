@@ -18,15 +18,16 @@
     <a v-if="isUser || isAdmin || isDoctor" class="nav-link" @click="logout">
       LogOut ||</a
     >
+    <router-link v-if="isAdmin" to="/adminpanel"> Admin Panel ||</router-link>
     <p v-if="GStore.currentUser">
       Welcome! <u style="color: red">{{ GStore.currentUser.name }}</u>
     </p>
   </nav>
   <router-view />
-  <footer>
+  <!-- <footer>
     @For SE331 Final Project -:
     <p style="color: white">{{ localTime }}</p>
-  </footer>
+  </footer> -->
 </template>
 
 <script>

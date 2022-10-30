@@ -58,14 +58,27 @@ export default {
       schema,
     };
   },
+  computed: {
+    currentUser() {
+      return localStorage.getItem("user");
+    },
+  },
   methods: {
     handleLogin(user) {
       AuthService.login(user)
         .then(() => {
-          this.$router.push({ name: "PatientList" });
+          if (this.currentUser.includes("ROLE_ADMIN")) {
+            this.$router.push({ name: "AdminsPanelView" });
+          } else if (
+            this.currentUser.includes("ROLE_DOCTOR") ||
+            this.currentUser.includes("ROLE_USER")
+          ) {
+            this.$router.push({ name: "PatientList" });
+          }
         })
-        .catch(() => {
-          this.message = "could not login";
+        .catch((err) => {
+          console.log(err);
+          // this.message = "could not login";
         });
     },
   },

@@ -23,11 +23,12 @@
 
       <h3>Who is your organizer?</h3>
 
-      <BaseSelect
-        :options="GStore.organizers"
-        v-model="event.organizer.id"
-        label="Select an Organizer"
+      <b-dropdown
+        :options="GStore.event.id"
+        v-model="event.doctor.id"
+        label="Select an Doctor"
       />
+
       <h3>The image of the Event</h3>
       <UploadImages @changed="handleImages" />
 
@@ -53,7 +54,7 @@ export default {
         title: "",
         description: "",
         location: "",
-        organizer: { id: "", name: "" },
+        doctor: { id: "", name: "" },
         imageUrls: [],
       },
       files: [],

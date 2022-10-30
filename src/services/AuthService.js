@@ -28,7 +28,6 @@ export default {
   },
   hasRoles(roles) {
     if (GStore.currentUser && roles) {
-      console.log(GStore.currentUser);
       let containRoles = GStore.currentUser.authorities.filter((auth) =>
         roles.includes(auth)
       );
