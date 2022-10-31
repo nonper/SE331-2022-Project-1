@@ -29,7 +29,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: biggib01/se331-injection-need:latest
+          tags: biggib01/se331-finalproject-frontend:latest
       -
         name: prepare the docker compose run
         run: |

@@ -1,6 +1,6 @@
 version: '3.9'
 services:
   web:
-    image: "biggib01/se331-injection-need:latest"
+    image: "biggib01/se331-finalproject-frontend:latest"
     ports:
       - 8001:80
