@@ -216,4 +216,28 @@ input {
   display: block;
   margin: 0 auto;
 }
+table {
+  table-layout: fixed;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+td {
+  border: 1px solid black;
+  overflow: hidden;
+}
+input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #555555;
+  border-radius: 50%;
+  background-clip: content-box;
+  padding: 3px;
+  margin-top: 0.5em;
+}
+
+input[type="radio"]:checked {
+  background-color: #555555;
+}
 </style>
