@@ -29,10 +29,7 @@ export default {
     saveComment() {
       return DoctorService.postComment(this.comment)
         .then((response) => {
-          console.log(response);
-          this.$router.push({
-            name: "PatientList",
-          });
+          this.$router.go();
           this.GStore.flashMessage =
             "Successfully add comment to " + response.data.name;
           setTimeout(() => {

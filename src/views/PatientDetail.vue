@@ -20,12 +20,12 @@
 
   <div v-if="GStore">
     <h1 class="head name">
-      {{ GStore.event.name }} {{ GStore.event.surname }}
+      Name: {{ GStore.event.name }} {{ GStore.event.surname }}
     </h1>
     <h2 class="head">Address: {{ GStore.event.homeTown }}</h2>
     <h2 class="head">Age: {{ GStore.event.age }}</h2>
     <h2>
-      Doctor: Dr.{{ GStore.event.doctor.name }}
+      In care of Dr.{{ GStore.event.doctor.name }}
       {{ GStore.event.doctor.surname }}
     </h2>
     <img v-for="url in GStore.event.imageUrls" :key="url" :src="url" />

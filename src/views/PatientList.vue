@@ -2,7 +2,6 @@
   <div id="pagedd">
     <div class="events">
       <EventCard v-for="event in events" :key="event.id" :event="event" />
-
       <div class="pagination">
         <router-link
           id="page-prev"

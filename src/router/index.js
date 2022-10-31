@@ -13,6 +13,7 @@ import DoctorService from "@/services/DoctorService";
 import DoctorComment from "@/views/addCommentView.vue";
 import Blankpage from "@/views/BlankpageBB.vue";
 import AdminsPanelView from "@/views/AdminPanelView.vue";
+import PatientInCareView from "@/views/PatientListInCare.vue";
 import AddPatient from "@/views/AddPatientForm.vue";
 import GStore from "@/store";
 
@@ -22,6 +23,28 @@ const routes = [
     name: "PatientList",
     component: PatientList,
     props: (route) => ({ page: parseInt(route.query.page) || 1 }),
+  },
+  {
+    path: "/patientincare",
+    name: "PatientInCareView",
+    component: PatientInCareView,
+    props: true,
+    beforeEnter: (to) => {
+      return DoctorService.getDoctor(GStore.currentUser.id)
+        .then((res) => {
+          GStore.event = res.data;
+        })
+        .catch((err) => {
+          if (err.response && err.response.status == 404) {
+            return {
+              name: "404Resource",
+              params: { resource: to.params.id + " Page" },
+            };
+          } else {
+            return { name: "NetworkError" };
+          }
+        });
+    },
   },
   {
     path: "/",

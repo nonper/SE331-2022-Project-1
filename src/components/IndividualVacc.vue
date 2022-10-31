@@ -15,15 +15,18 @@
           <tr>
             <td class="IDColumn">{{ GStore.event.id }}</td>
             <td>{{ GStore.event.name }}_{{ GStore.event.surname }}</td>
-            <td>
-              <!-- <div v-for="vaccine in event.vaccines" :key="vaccine.id">
-                {{ vaccine.vaccineName }}
-              </div> -->
+            <td v-if="GStore.event.vaccinateStatus == 'First dose'">
+              {{ GStore.event.vaccines[0].vaccineName }}
+            </td>
+            <td v-if="GStore.event.vaccinateStatus == 'Second dose'">
               {{ GStore.event.vaccines[0].vaccineName }}
               <p style="color: red">and</p>
               {{ GStore.event.vaccines[1].vaccineName }}
             </td>
-            <td>
+            <td v-if="GStore.event.vaccinateStatus == 'First dose'">
+              {{ GStore.event.firstDate }}
+            </td>
+            <td v-if="GStore.event.vaccinateStatus == 'Second dose'">
               {{ GStore.event.firstDate }}
               <p style="color: red">and</p>
               {{ GStore.event.secondDate }}

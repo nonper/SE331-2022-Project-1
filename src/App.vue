@@ -15,6 +15,9 @@
     <router-link v-if="!isUser && !isAdmin && !isDoctor" to="/register">
       Register ||</router-link
     >
+    <router-link v-if="isDoctor" :to="{ name: 'PatientInCareView' }">
+      Patient In Care ||</router-link
+    >
     <a v-if="isUser || isAdmin || isDoctor" class="nav-link" @click="logout">
       LogOut ||</a
     >
@@ -24,10 +27,10 @@
     </p>
   </nav>
   <router-view />
-  <!-- <footer>
+  <footer>
     @For SE331 Final Project -:
     <p style="color: white">{{ localTime }}</p>
-  </footer> -->
+  </footer>
 </template>
 
 <script>
