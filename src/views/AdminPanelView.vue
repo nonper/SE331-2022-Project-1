@@ -3,7 +3,9 @@
     <h1><u>Admin Panel</u></h1>
     <nav>
       <router-link v-if="isAdmin" to="/addPatient">Add Patient ||</router-link>
-      <router-link v-if="isAdmin" to="/login"> Add role ||</router-link>
+      <router-link v-if="isAdmin" to="/login" style="color: red">
+        Add role ||</router-link
+      >
     </nav>
     <router-view />
   </div>

@@ -125,7 +125,7 @@
       <UploadImages @changed="handleImages" />
 
       <button
-        style="margin: 30px 0px 50px 0px"
+        style="margin: 30px 0px 200px 0px"
         type="submit"
         class="btn btn-primary"
       >
